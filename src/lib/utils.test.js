@@ -28,3 +28,9 @@ test('pipe passes the results of dbl to inc', () => {
   const result = pipeline(2)
   expect(result).toBe(5)
 })
+
+test('pipe works with more than two functions', () => {
+  const pipeline = pipe(add, inc, dbl, inc)
+  const result = pipeline(1, 2)
+  expect(result).toBe(9)
+})
