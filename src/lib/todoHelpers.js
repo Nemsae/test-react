@@ -3,10 +3,9 @@ export const addTodo = (list, item) => [...list, item];
 
 export const generateId = () => Math.floor(Math.random() * 100000)
 
-export const findById = (list, id) => list.find(item => item.id === id)
+export const findById = (id, list) => list.find(item => item.id === id)
 
 export const toggleTodo = (todo) => ({...todo, isComplete: !todo.isComplete})
-// 
 // export const toggleTodo = (todo) => {
 //   const updatedTodo = Object.assign({}, todo, {
 //     isComplete: true,
@@ -14,13 +13,16 @@ export const toggleTodo = (todo) => ({...todo, isComplete: !todo.isComplete})
 //   return updatedTodo;
 // }
 
-// export const findById = (list, id) => {
-//   let listItem;
-//   for (let i = 0; i < list.length; i++) {
-//     const item = list[i];
-//     if (item.id === id) listItem = item;
-//     if (listItem !== undefined) break;
-//   }
-//   console.log('listItem: ', listItem);
-//   return listItem;
-// }
+export const updateTodo = (list, updatedItem) => {
+  const updatedIndex = list.findIndex(item => item.id === updatedItem.id)
+  return [
+    ...list.slice(0, updatedIndex),
+    updatedItem,
+    ...list.slice(updatedIndex + 1)
+  ]
+  // const updatedTodos = list.map(item => {
+  //   if (item.id === updatedItem.id) return updatedItem
+  //   else return item
+  // })
+  // return updatedTodos
+}
