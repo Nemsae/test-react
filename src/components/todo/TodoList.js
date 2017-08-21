@@ -15,19 +15,7 @@ export const TodoList = (props) => {
     </div>
   )
 }
-//
-// export const TodoList = (props) => (
-//   <div className="Todo-List">
-//     <ul>
-//       {
-//         props.todos.map(todo => (
-//           <TodoList todo={todo} />
-//         // <li key={todo.id}>
-//         //   <input type="checkbox" defaultChecked={todo.isComplete}/>
-//         //   {todo.name}
-//         // </li>
-//         ))
-//       }
-//     </ul>
-//   </div>
-// )
+
+TodoList.propTypes = {
+  todos: React.PropTypes.array.isRequired,
+}
