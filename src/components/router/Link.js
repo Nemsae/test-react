@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 
 export class Link extends Component {
+  static contextTypes = {
+    route: React.PropTypes.string,
+    linkHandler: React.PropTypes.func,
+  }
   constructor(props) {
     super(props);
     console.log('props: ', props);
   }
   handleClick = (e) => {
-    e.preventDefault;
-    //  history.pushState(initialState, title, location)
-    history.pushState(null, '', this.props.to)
+    e.preventDefault();
+    this.context.linkHandler(this.props.to)
   }
   render() {
-    return <a href="#" onClick={this.handleClick}>{this.props.children}</a>
+    const activeClass = this.context.route === this.props.to ? 'active' : ''
+    return <a className={activeClass} href="" onClick={this.handleClick}>{this.props.children}</a>
   }
+}
+
+Link.propTypes = {
+  to: React.PropTypes.string.isRequired,
 }
