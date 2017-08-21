@@ -20,9 +20,20 @@ export const updateTodo = (list, updatedItem) => {
     updatedItem,
     ...list.slice(updatedIndex + 1)
   ]
-  // const updatedTodos = list.map(item => {
-  //   if (item.id === updatedItem.id) return updatedItem
-  //   else return item
-  // })
-  // return updatedTodos
+}
+
+export const filterTodos = (list, route) => {
+  switch (route) {
+    case '/':
+      return list
+      break;
+    case '/complete':
+      return list.filter(item => item.isComplete === true)
+      break;
+    case '/active':
+      return list.filter(item => item.isComplete === false)
+      break;
+    default:
+
+  }
 }
