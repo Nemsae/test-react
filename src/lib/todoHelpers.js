@@ -1,5 +1,4 @@
 
-export const addTodo = (startTodos, newTodo) => {
-  const newTodos = [...startTodos, newTodo]
-  return newTodos;
-}
+export const addTodo = (startTodos, newTodo) => [...startTodos, newTodo];
+
+export const generateId = () => Math.floor(Math.random() * 100000)
