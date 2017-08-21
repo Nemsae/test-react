@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { TodoForm, TodoList, Footer } from './components/todo';
-import { addTodo, generateId, findById, updateTodo, toggleTodo, filterTodos } from './lib/todoHelpers';
+import { addTodo, generateId, findById, updateTodo, toggleTodo, filterTodos, removeTodo } from './lib/todoHelpers';
 import { pipe, partial } from './lib/utils';
-import { loadTodos, createTodo } from './lib/todoService';
+import { loadTodos, createTodo, saveTodo, destroyTodo } from './lib/todoService';
 
 class App extends Component {
   state = {
@@ -22,15 +22,21 @@ class App extends Component {
   }
 
   handleToggle = (id) => {
-    const getUpdatedTodos = pipe(findById, toggleTodo, partial(updateTodo, this.state.todos))
-
+    const getToggledTodo = pipe(findById, toggleTodo)
+    const updated = getToggledTodo(id, this.state.todos)
+    const getUpdatedTodos = partial(updateTodo, this.state.todos)
+    const updatedTodos = getUpdatedTodos(updated)
+    this.setState({todos: updatedTodos})
+    saveTodo(updated)
+      .then(() => this.showTempMessage('Todo toggled!'))
+    // const getUpdatedTodos = pipe(findById, toggleTodo, partial(updateTodo, this.state.todos))
     // const todo = findById(id, this.state.todos)
     // console.log('todo: ', todo);
     // const toggled = toggleTodo(todo)
     // console.log('toggled: ', toggled);
     // const updatedTodos = updateTodo(this.state.todos, toggled)
-    const updatedTodos = getUpdatedTodos(id, this.state.todos);
-    this.setState({ todos: updatedTodos })
+    // const updatedTodos = getUpdatedTodos(id, this.state.todos);
+    // this.setState({ todos: updatedTodos })
   }
 
   handleInputChange = (e) => {
@@ -55,6 +61,13 @@ class App extends Component {
     })
     createTodo(newTodo)
       .then(() => this.showTempMessage('Todo added!'))
+  }
+
+  handleRemove = (id, e) => {
+    e.preventDefault();
+    const updatedTodos = removeTodo(this.state.todos, id)
+    this.setState({todos: updatedTodos})
+    console.log('id: ', id);
   }
 
   showTempMessage = (msg) => {
@@ -86,7 +99,8 @@ class App extends Component {
             handleSubmit={submitHandler}/>
           <TodoList
             todos={displayTodos}
-            handleToggle={this.handleToggle}/>
+            handleToggle={this.handleToggle}
+            handleRemove={this.handleRemove}/>
           <Footer />
         </div>
       </div>

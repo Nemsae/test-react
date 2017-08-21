@@ -22,6 +22,14 @@ export const updateTodo = (list, updatedItem) => {
   ]
 }
 
+export const removeTodo = (list, id) => {
+  const deletedIndex = list.findIndex(item => item.id === id)
+  return [
+    ...list.slice(0, deletedIndex),
+    ...list.slice(deletedIndex + 1)
+  ]
+}
+
 export const filterTodos = (list, route) => {
   switch (route) {
     case '/':

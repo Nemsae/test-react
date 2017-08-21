@@ -56,3 +56,13 @@ li {
 .Footer a.active {
   font-weight: bold;
 }
+
+li span.delete {
+  /*display: none;*/
+  color: white;
+}
+
+li span.delete:hover {
+  /*display: block;*/
+  color: red;
+}
