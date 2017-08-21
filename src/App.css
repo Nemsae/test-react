@@ -45,6 +45,9 @@ li {
   color: red;
 }
 
+.success {
+  color: green;
+}
 
 .Footer a {
   padding: 0 2px;

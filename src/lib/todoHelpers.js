@@ -34,6 +34,6 @@ export const filterTodos = (list, route) => {
       return list.filter(item => item.isComplete === false)
       break;
     default:
-
+      return list
   }
 }
