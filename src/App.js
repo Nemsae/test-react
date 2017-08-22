@@ -68,6 +68,8 @@ class App extends Component {
     const updatedTodos = removeTodo(this.state.todos, id)
     this.setState({todos: updatedTodos})
     console.log('id: ', id);
+    destroyTodo(id)
+      .then(() => this.showTempMessage('Todo removed!'))
   }
 
   showTempMessage = (msg) => {
